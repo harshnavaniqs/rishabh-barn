@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Box, Grid, styled, Paper } from "@mui/material";
+import {
+  Box,
+  Grid,
+  styled,
+  Paper,
+  Backdrop,
+  CircularProgress,
+} from "@mui/material";
 import { useAppState } from "../AppStateContext";
 import axios from "axios";
 
+import TicketGroupPriority from "./TicketGroupPriority";
 import TicketGroupStatus from "./TicketGroupStatus";
 import TicketGroupUser from "./TicketGroupUser";
 
@@ -86,22 +94,25 @@ const Home = () => {
     tickets: [],
     users: [],
   });
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
 
   useEffect(() => {
-    // Fetch data using Axios
-    axios
-      .get("https://apimocha.com/quicksell/data")
-      .then((response) => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("https://apimocha.com/quicksell/data");
         setData(response.data);
-      })
-      .catch((error) => {
+        setIsDataLoaded(true);
+      } catch (error) {
         console.error("Error fetching data:", error);
-      });
+      }
+    };
+
+    fetchData();
   }, []);
 
   // group basis status
   const groupedTickets_status = {};
-  data.tickets.forEach((ticket) => {
+  data?.tickets?.forEach((ticket) => {
     if (!groupedTickets_status[ticket.status]) {
       groupedTickets_status[ticket.status] = [];
     }
@@ -110,7 +121,7 @@ const Home = () => {
 
   // group basis user
   const groupedTickets_user = {};
-  data.tickets.forEach((ticket) => {
+  data?.tickets?.forEach((ticket) => {
     if (!groupedTickets_user[ticket.userId]) {
       groupedTickets_user[ticket.userId] = [];
     }
@@ -119,7 +130,7 @@ const Home = () => {
 
   // group basis priority
   const groupedTickets_priority = {};
-  data.tickets.forEach((ticket) => {
+  data?.tickets?.forEach((ticket) => {
     if (!groupedTickets_priority[ticket.priority]) {
       groupedTickets_priority[ticket.priority] = [];
     }
@@ -134,13 +145,13 @@ const Home = () => {
 
   if (selectedOptions.ordering === "title") {
     for (const status in groupedTickets_status) {
-      groupedTickets_status[status].sort(compareTitles);
+      groupedTickets_status[status]?.sort(compareTitles);
     }
     for (const user in groupedTickets_user) {
-      groupedTickets_user[user].sort(compareTitles);
+      groupedTickets_user[user]?.sort(compareTitles);
     }
     for (const priority in groupedTickets_priority) {
-      groupedTickets_priority[priority].sort(compareTitles);
+      groupedTickets_priority[priority]?.sort(compareTitles);
     }
   }
   //
@@ -152,13 +163,13 @@ const Home = () => {
 
   if (selectedOptions.ordering === "priority") {
     for (const status in groupedTickets_status) {
-      groupedTickets_status[status].sort(comparePriority);
+      groupedTickets_status[status]?.sort(comparePriority);
     }
     for (const user in groupedTickets_user) {
-      groupedTickets_user[user].sort(comparePriority);
+      groupedTickets_user[user]?.sort(comparePriority);
     }
     for (const priority in groupedTickets_priority) {
-      groupedTickets_priority[priority].sort(comparePriority);
+      groupedTickets_priority[priority]?.sort(comparePriority);
     }
   }
   //
@@ -172,6 +183,12 @@ const Home = () => {
       }}
     >
       <MainContainer container>
+        <Backdrop
+          open={!isDataLoaded}
+          sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
         {selectedOptions.grouping === "status" ? (
           <TicketGroupStatus
             data={data}
@@ -192,22 +209,16 @@ const Home = () => {
           />
         ) : null}
 
-        {selectedOptions.grouping === "priority"
-          ? priorityValues.map((priority) => (
-              <Grid item lg={2.4} key={priority}>
-                <div>
-                  <h2>{priorityLabels[priority]}</h2>
-                  <ul>
-                    {groupedTickets_priority[priority]
-                      ? groupedTickets_priority[priority].map((ticket) => (
-                          <li key={ticket.id}>{ticket.title}</li>
-                        ))
-                      : null}
-                  </ul>
-                </div>
-              </Grid>
-            ))
-          : null}
+        {selectedOptions.grouping === "priority" ? (
+          <TicketGroupPriority
+            data={data}
+            groupedTickets_priority={groupedTickets_priority}
+            priorityIcons={priorityIcons}
+            statusIcons={statusIcons}
+            priorityValues={priorityValues}
+            priorityLabels={priorityLabels}
+          />
+        ) : null}
       </MainContainer>
     </Box>
   );
