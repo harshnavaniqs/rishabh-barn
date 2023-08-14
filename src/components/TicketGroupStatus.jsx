@@ -1,13 +1,10 @@
 import React from "react";
-import { Grid, IconButton, Paper, Radio, styled } from "@mui/material";
+import { Grid, Paper, styled } from "@mui/material";
 
-import icon from "../assets/perspective-dice-random-icon-469x512-mm6xb9so.png";
-import onlineIcon from "../assets/Yellow_icon.svg.png";
-import offlineIcon from "../assets/circle-xxl.png";
-
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import CircleIcon from "@mui/icons-material/Circle";
-import AddIcon from "@mui/icons-material/Add";
+import CustomMoreButton from "./CustomMoreButton";
+import CustomAddButton from "./CustomAddButton";
+import FeatureRequest from "./FeatureRequest";
+import ProfileIcon from "./ProfileIcon";
 
 const CustomTicketCard = ({ ticket, getUserAvailability, priorityIcons }) => {
   return (
@@ -35,30 +32,10 @@ const CustomTicketCard = ({ ticket, getUserAvailability, priorityIcons }) => {
           >
             {ticket.id}
           </p>
-          <div style={{ position: "relative" }}>
-            <img
-              src={icon}
-              alt="icon"
-              style={{
-                width: "16px",
-                height: "16px",
-                marginRight: "4px",
-              }}
-            />
-            <img
-              src={
-                getUserAvailability(ticket.userId) ? onlineIcon : offlineIcon
-              }
-              alt={getUserAvailability(ticket.userId) ? "Online" : "Offline"}
-              style={{
-                width: "10px",
-                height: "10px",
-                position: "absolute",
-                top: "10px",
-                left: "10px",
-              }}
-            />
-          </div>
+          <ProfileIcon
+            userId={ticket.userId}
+            getUserAvailability={getUserAvailability}
+          />
         </div>
         <p
           style={{
@@ -77,20 +54,7 @@ const CustomTicketCard = ({ ticket, getUserAvailability, priorityIcons }) => {
           }}
         >
           {priorityIcons[ticket.priority]}
-          <Paper style={{ padding: "0.1rem 0.2rem 0.2rem 0.1rem" }}>
-            <Radio
-              icon={<CircleIcon style={{ fontSize: 14 }} />}
-              checkedIcon={<CircleIcon style={{ fontSize: 14 }} />}
-              color="default"
-              size="small"
-              style={{
-                marginRight: 4,
-                padding: 0,
-                marginBottom: "0.1rem",
-              }}
-            />
-            <span style={{ fontSize: 12 }}>{ticket.tag[0]}</span>
-          </Paper>
+          <FeatureRequest tag={ticket.tag[0]} />
         </div>
       </div>
     </Paper>
@@ -142,16 +106,8 @@ const TicketGroupStatus = ({
               </h4>
             </CustomLabel>
             <div style={{ marginLeft: "auto" }}>
-              <IconButton>
-                <AddIcon style={{ fontSize: 18 }} />
-              </IconButton>
-              <IconButton>
-                <MoreHorizIcon
-                  style={{
-                    fontSize: 18,
-                  }}
-                />
-              </IconButton>
+              <CustomAddButton />
+              <CustomMoreButton />
             </div>
           </div>
           <ul style={{ listStyleType: "none", padding: 0 }}>

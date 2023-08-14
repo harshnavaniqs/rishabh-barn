@@ -6,6 +6,7 @@ import {
   Paper,
   Backdrop,
   CircularProgress,
+  Tooltip,
 } from "@mui/material";
 import { useAppState } from "../AppStateContext";
 import axios from "axios";
@@ -34,41 +35,59 @@ const statusIcons = {
   Canceled: cancelIcon,
 };
 
+const priorityLabels = {
+  4: "Urgent",
+  3: "High",
+  2: "Medium",
+  1: "Low",
+  0: "No priority",
+};
+
 const priorityIcons = {
   4: (
-    <Paper style={{ marginRight: "0.3rem" }}>
-      <ErrorTwoToneIcon
-        style={{ fontSize: "14px", padding: "0.3rem 0.3rem 0.1rem 0.3rem" }}
-      />
-    </Paper>
+    <Tooltip title={priorityLabels[4]} followCursor>
+      <Paper style={{ marginRight: "0.3rem", display: "inline-block" }}>
+        <ErrorTwoToneIcon
+          style={{ fontSize: "14px", padding: "0.3rem 0.3rem 0.1rem 0.3rem" }}
+        />
+      </Paper>
+    </Tooltip>
   ),
   3: (
-    <Paper style={{ marginRight: "0.3rem" }}>
-      <SignalCellular4BarIcon
-        style={{ fontSize: "14px", padding: "0.3rem 0.3rem 0.1rem 0.3rem" }}
-      />
-    </Paper>
+    <Tooltip title={priorityLabels[3]} followCursor>
+      <Paper style={{ marginRight: "0.3rem", display: "inline-block" }}>
+        <SignalCellular4BarIcon
+          style={{ fontSize: "14px", padding: "0.3rem 0.3rem 0.1rem 0.3rem" }}
+        />
+      </Paper>
+    </Tooltip>
   ),
   2: (
-    <Paper style={{ marginRight: "0.3rem" }}>
-      <SignalCellular3BarIcon
-        style={{ fontSize: "14px", padding: "0.3rem 0.3rem 0.1rem 0.3rem" }}
-      />
-    </Paper>
+    <Tooltip title={priorityLabels[2]} followCursor>
+      <Paper style={{ marginRight: "0.3rem", display: "inline-block" }}>
+        <SignalCellular3BarIcon
+          style={{ fontSize: "14px", padding: "0.3rem 0.3rem 0.1rem 0.3rem" }}
+        />
+      </Paper>
+    </Tooltip>
   ),
   1: (
-    <Paper style={{ marginRight: "0.3rem" }}>
-      <SignalCellular1BarIcon
-        style={{ fontSize: "14px", padding: "0.3rem 0.3rem 0.1rem 0.3rem" }}
-      />
-    </Paper>
+    <Tooltip title={priorityLabels[1]} followCursor>
+      <Paper style={{ marginRight: "0.3rem", display: "inline-block" }}>
+        <SignalCellular1BarIcon
+          style={{ fontSize: "14px", padding: "0.3rem 0.3rem 0.1rem 0.3rem" }}
+        />
+      </Paper>
+    </Tooltip>
   ),
   0: (
-    <Paper style={{ marginRight: "0.3rem" }}>
-      <MoreHorizIcon
-        style={{ fontSize: "14px", padding: "0.3rem 0.3rem 0.1rem 0.3rem" }}
-      />
-    </Paper>
+    <Tooltip title={priorityLabels[0]} followCursor>
+      <Paper style={{ marginRight: "0.3rem", display: "inline-block" }}>
+        <MoreHorizIcon
+          style={{ fontSize: "14px", padding: "0.3rem 0.3rem 0.1rem 0.3rem" }}
+        />
+      </Paper>
+    </Tooltip>
   ),
 };
 
@@ -79,14 +98,6 @@ const priorityValues = [4, 3, 2, 1, 0];
 const MainContainer = styled(Grid)({
   /* ... */
 });
-
-const priorityLabels = {
-  4: "Urgent",
-  3: "High",
-  2: "Medium",
-  1: "Low",
-  0: "No priority",
-};
 
 const Home = () => {
   const { selectedOptions } = useAppState();
