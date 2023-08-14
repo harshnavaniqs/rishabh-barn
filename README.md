@@ -81,9 +81,8 @@ All components used in the application are stored within the **components** dire
 
 ## Summary
 
-This project structure separates concerns and promotes maintainability by organizing components, styles, context, and assets in separate directories. Using context in **AppStateContext.js** ensures efficient state management across the application. The **Home.jsx** component is the central hub, rendering different ticket group components and the navigation bar for a comprehensive Kanban board experience.<br>
+This project structure separates concerns and promotes maintainability by organizing components, styles, context, and assets in separate directories. Using context in **AppStateContext.js** ensures efficient state management across the application. The **Home.jsx** component is the central hub, rendering different ticket group components and the navigation bar for a comprehensive Kanban board experience.<br><br>
 
-------------------
 
 ### `npm start`
 
