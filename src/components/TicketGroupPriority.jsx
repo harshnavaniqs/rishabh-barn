@@ -84,6 +84,7 @@ const TicketGroupPriority = ({
   statusIcons,
   priorityValues,
   priorityLabels,
+  statusValues,
 }) => {
   const getUserAvailability = (userId) => {
     const user = data.users.find((user) => user.id === userId);
@@ -113,7 +114,12 @@ const TicketGroupPriority = ({
               </h4>
             </CustomLabel>
             <div style={{ marginLeft: "auto" }}>
-              <CustomAddButton />
+              <CustomAddButton
+                groupId={priority}
+                users={data.users}
+                status={statusValues}
+                priority={priorityLabels}
+              />
               <CustomMoreButton />
             </div>
           </div>

@@ -72,6 +72,7 @@ const TicketGroupStatus = ({
   groupedTickets_status,
   priorityIcons,
   statusIcons,
+  priorityLabels,
   statusValues,
 }) => {
   const getUserAvailability = (userId) => {
@@ -106,7 +107,12 @@ const TicketGroupStatus = ({
               </h4>
             </CustomLabel>
             <div style={{ marginLeft: "auto" }}>
-              <CustomAddButton />
+              <CustomAddButton
+                groupId={status}
+                users={data.users}
+                status={statusValues}
+                priority={priorityLabels}
+              />
               <CustomMoreButton />
             </div>
           </div>

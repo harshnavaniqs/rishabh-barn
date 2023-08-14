@@ -91,9 +91,9 @@ const priorityIcons = {
   ),
 };
 
-const statusValues = ["Backlog", "Todo", "In progress", "Done", "Canceled"];
-
 const priorityValues = [4, 3, 2, 1, 0];
+
+const statusValues = ["Backlog", "Todo", "In progress", "Done", "Canceled"];
 
 const MainContainer = styled(Grid)({
   /* ... */
@@ -208,6 +208,7 @@ const Home = () => {
             groupedTickets_status={groupedTickets_status}
             priorityIcons={priorityIcons}
             statusIcons={statusIcons}
+            priorityLabels={priorityLabels}
             statusValues={statusValues}
           />
         ) : null}
@@ -218,6 +219,8 @@ const Home = () => {
             groupedTickets_user={groupedTickets_user}
             priorityIcons={priorityIcons}
             statusIcons={statusIcons}
+            priorityValues={priorityValues}
+            priorityLabels={priorityLabels}
             statusValues={statusValues}
           />
         ) : null}
@@ -230,6 +233,7 @@ const Home = () => {
             statusIcons={statusIcons}
             priorityValues={priorityValues}
             priorityLabels={priorityLabels}
+            statusValues={statusValues}
           />
         ) : null}
       </MainContainer>
