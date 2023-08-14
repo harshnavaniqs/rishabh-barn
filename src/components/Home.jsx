@@ -110,6 +110,8 @@ const Home = () => {
     fetchData();
   }, []);
 
+  // including all sorted data sets at Home
+  // by considering Home to be the absolute page for the instance
   // group basis status
   const groupedTickets_status = {};
   data?.tickets?.forEach((ticket) => {
